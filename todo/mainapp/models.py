@@ -44,3 +44,7 @@ class Todo(models.Model):
         verbose_name='активно',
         default=True,
     )
+    is_closed = models.BooleanField(
+        verbose_name='закрыто',
+        default=False,
+    )
