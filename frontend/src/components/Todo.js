@@ -1,26 +1,27 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-
-const UserItem = ({user}) => {
+const TodoItem = ({todo}) => {
     return(
         <tr>
-            <td>{user.first_name}</td>
-            <td>{user.last_name}</td>            
+            <td>{todo.body}</td>
+            <td>{todo.project}</td>
+            
         </tr>
     )
 
 }
 
-const UserList = () => {
-    const [users, setUsers] = useState();
+const TodoList = () => {
+    const [todos, setTodos] = useState();
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         setIsLoading(true);
-        axios.get('http://127.0.0.1:8000/api/users/')
+        axios.get('http://127.0.0.1:8000/api/todo/')
         .then(response => {
-          setUsers(response.data);
+          setTodos(response.data.results);
+          console.log(response.data);
           setIsLoading(false);
         }).catch(error => console.log(error));
     }, []);
@@ -33,19 +34,19 @@ const UserList = () => {
         );        
     } 
 
-    return users && (
+    return todos && (
         <table>
             <thead>            
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Текст</th>
+                    <th>Проект</th>
                 </tr>
             </thead>
             <tbody>
-                {users.map((user) => <UserItem user={user} />)}
+                {todos.map((todo) => <TodoItem todo={todo} />)}
             </tbody>
         </table>
     )
 }
 
-export default UserList;
+export default TodoList ;
