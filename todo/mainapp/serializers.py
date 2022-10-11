@@ -21,4 +21,5 @@ class TodoModelSerializer(serializers.ModelSerializer):
             'user',
             'body',
             'project',
+            'is_closed',
         )
