@@ -1,38 +1,40 @@
 import React from 'react';
-import axios from 'axios';
 
-import logo from './logo.svg';
+import {BrowserRouter, Route, Routes, Link, Navigator} from 'react-router-dom';
+
 import './App.css';
 import UserList from './components/User';
+import ProjectList from './components/Projects';
+import ProjectDetails from './components/Project';
+import TodoList from './components/Todo';
+import NotFound404 from './components/NotFound404';
 import { Menu, Footer } from './components';
 
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state={
-      'users': []
-    }
-  }
-
-  componentDidMount() {
-    axios.get('http://127.0.0.1:8000/api/users')
-      .then(response => {
-        const users = response.data;
-        this.setState(
-          {'users': users}
-        )
-      }).catch(error => console.log(error))
   }
   
-
   render() {
     return (
-        <div>
-            <Menu />
-            <UserList users={this.state.users} />
-            <Footer />
-        </div>
+      <div className="container">            
+        <BrowserRouter>
+          <Menu />
+          <Routes>
+            <Route exact path='/' element={<UserList />} />
+
+            <Route path='/projects'>
+              <Route index element={<ProjectList />} />
+              <Route path=':projectId' element={<ProjectDetails />} />
+            </Route>
+            
+            <Route exact path='/todos' element={<TodoList />} />
+            <Route path='*' element={<NotFound404 />} />
+          </Routes>            
+          <Footer />
+        </BrowserRouter>              
+      </div>
     )
   }
 }
