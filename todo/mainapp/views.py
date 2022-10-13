@@ -1,6 +1,4 @@
-from django.shortcuts import render
 from rest_framework import status
-from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from rest_framework.pagination import LimitOffsetPagination
