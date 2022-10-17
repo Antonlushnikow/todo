@@ -13,17 +13,19 @@ const UserItem = ({user}) => {
 }
 
 const UserList = () => {
-    const [users, setUsers] = useState();
+    const [users, setUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         setIsLoading(true);
         axios.get('http://127.0.0.1:8000/api/users/')
         .then(response => {
-          setUsers(response.data);
+          setUsers(response.data.results);
           setIsLoading(false);
         }).catch(error => console.log(error));
     }, []);
+
+    console.log(users);
 
     if (isLoading) {
         return (
@@ -33,7 +35,7 @@ const UserList = () => {
         );        
     } 
 
-    return users && (
+    return  (
         <table>
             <thead>            
                 <tr>

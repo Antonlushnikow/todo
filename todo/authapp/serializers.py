@@ -12,3 +12,4 @@ class TodoUserModelSerializer(ModelSerializer):
             'last_name',
             'email',
         )
+        ordering = ['id']
